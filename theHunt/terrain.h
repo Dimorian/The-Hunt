@@ -6,6 +6,8 @@ class Terrain
 private:
     bool sichtbar_;
     bool begehbar_;
+	
+	//testkommentar PENIS
 
 public:
     Terrain(bool sichtbar, bool begehbar)
