@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/PhongVL.vert</file>
+        <file>shaders/common.vert.inc</file>
+        <file>shaders/commonlight.vert.inc</file>
+        <file>shaders/commonlightmatdefs.inc</file>
+        <file>shaders/commonlightmodels.inc</file>
+        <file>shaders/LambertVL.vert</file>
+        <file>shaders/PassThrough.frag</file>
+        <file>shaders/blinnvl.vert</file>
+        <file>shaders/PhongFL.frag</file>
+        <file>shaders/PhongPassThrough.vert</file>
+        <file>shaders/toonfl.frag</file>
+        <file>shaders/texture.vert</file>
+        <file>shaders/texture.frag</file>
+        <file>shaders/simpletexture.frag</file>
+        <file>shaders/wind.vert</file>
+        <file>shaders/wind.frag</file>
+    </qresource>
+</RCC>
