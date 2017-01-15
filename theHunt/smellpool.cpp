@@ -21,3 +21,13 @@ void SmellPool::create(int intensity, bool effect)
         }
     }
 }
+
+bool SmellPool::isSmell(int x, int y)
+{
+    for(int i = 0; i < POOLSIZE; i++)
+        if(smelltokens_[i].getX()==x && smelltokens_[i].getY()==y){
+            return true;
+        }
+
+    return false;
+}

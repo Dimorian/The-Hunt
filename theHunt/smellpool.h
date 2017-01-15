@@ -13,6 +13,7 @@ public:
 
     void animate(int windX, int windY);
     void create(int intensity, bool effect);
+    bool isSmell(int x, int y);
 };
 
 #endif // SMELLPOOL_H
