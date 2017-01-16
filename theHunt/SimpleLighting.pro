@@ -26,7 +26,8 @@ SOURCES += myscene.cpp \
     calmstate.cpp \
     controller.cpp \
     kreatur.cpp \
-    animatedmodel.cpp
+    animatedmodel.cpp \
+    warnedstate.cpp
 
 HEADERS += \
     world.h \
@@ -38,7 +39,8 @@ HEADERS += \
     calmstate.h \
     controller.h \
     kreatur.h \
-    animatedmodel.h
+    animatedmodel.h \
+    warnedstate.h
 
 RESOURCES += \
     MyShaders.qrc
