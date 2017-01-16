@@ -82,7 +82,7 @@ srand(time(NULL));
 				drawables.append( new Drawable(meshs.at(1)));
 				t = drawables.back()->getProperty<Texture>();
 				//ToDo: add block texture
-				t->loadPicture(path+QString("/../Textures/BaumTexture.png"));
+				t->loadPicture(path+QString("/../Textures/BodenblockTexture.png"));
 				drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 				break;
 			}
