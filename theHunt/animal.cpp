@@ -10,8 +10,13 @@ Animal::Animal(AnimatedModel* model_) : Kreatur ( model_)
 
 void Animal::update()
 {
-    AnimalState* state = currentState_->update(this);
+    sightingX_ = 0;
+    sightingY_ = 0;
 
+    smellSense();
+    sightSense();
+
+    AnimalState* state = currentState_->update(this);
     if(state != NULL){
         delete currentState_;
         currentState_ = state;
@@ -137,7 +142,6 @@ void Animal::smellSense()
             sightingY_=(sightingY_+yBuf+1)/2;
         }*/
     }
-    return true;
 }
 
 void Animal::sightSense()
@@ -145,10 +149,6 @@ void Animal::sightSense()
     QQueue<int> sightings;
     for (int i = currentState_->getSightRange(); i > 0; i--)
         circle(sightings, i);
-
-    //Ausstieg wenn keine Sichtung
-    if(sightings.size()==0)
-        return false;
 
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
@@ -164,5 +164,4 @@ void Animal::sightSense()
             sightingY_=(sightingY_+yBuf*2+1)/3;
         }*/
     }
-    return true;
 }

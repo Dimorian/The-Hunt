@@ -18,8 +18,6 @@ private:
 //    int xDir_;
 //    int yDir_;
 
-
-
     int sightingX_;
     int sightingY_;
     int destinationX_;
