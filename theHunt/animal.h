@@ -13,10 +13,6 @@ friend class CalmState;
 friend class WarnedState;
 
 private:
-    //andere Positionierung der States bei mehr Tieren, die die States nutzen
-    static CalmState calm;
-    static WarnedState warned;
-
     int xPos_;
     int yPos_;
     int xDir_;
@@ -28,13 +24,12 @@ private:
     AnimalState* currentState_;
 
     void circle(QQueue<int>& queue, int radius);
-    bool sightSense();
-    bool smellSense();
+    void sightSense();
+    void smellSense();
 
 public:
     Animal();
     void update();
-    void move();
 };
 
 #endif // ANIMAL_H

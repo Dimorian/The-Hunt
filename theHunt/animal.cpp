@@ -10,11 +10,13 @@ Animal::Animal()
 
 void Animal::update()
 {
-    currentState_->update(this);
-}
+    AnimalState* state = currentState_->update(this);
 
-void Animal::move()
-{
+    if(state != NULL){
+        delete currentState_;
+        currentState_ = state;
+    }
+
     currentState_->move(this);
 }
 
@@ -76,15 +78,11 @@ void Animal::circle(QQueue<int> &queue, int radius)
     }
 }
 
-bool Animal::smellSense()
+void Animal::smellSense()
 {
     QQueue<int> sightings;
     for (int i = currentState_->getSmellRange(); i > 0; i--)
         circle(sightings, i);
-
-    //Ausstieg wenn keine Sichtung
-    if(sightings.size()==0)
-        return false;
 
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
@@ -103,7 +101,7 @@ bool Animal::smellSense()
     return true;
 }
 
-bool Animal::sightSense()
+void Animal::sightSense()
 {
     QQueue<int> sightings;
     for (int i = currentState_->getSightRange(); i > 0; i--)
