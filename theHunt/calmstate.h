@@ -3,11 +3,15 @@
 
 #include "animalstate.h"
 
+class Animal;
+
 class CalmState : public AnimalState
 {
 public:
     CalmState();
-    void animate(Animal& animal);
+
+    void update(Animal* animal);
+    void move(Animal* animal);
 };
 
 #endif // CALMSTATE_H
