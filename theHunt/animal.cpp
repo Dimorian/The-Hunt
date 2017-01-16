@@ -18,7 +18,7 @@ void Animal::move()
     currentState_->move(this);
 }
 
-void Animal::circle(std::queue<int> &queue, int radius)
+void Animal::circle(QQueue<int> &queue, int radius)
 {
     int f = 1 - radius;
     int ddF_x = 0;
@@ -26,17 +26,17 @@ void Animal::circle(std::queue<int> &queue, int radius)
     int x = 0;
     int y = radius;
 
-    queue.push(xPos_);
-    queue.push(yPos_ + radius);
+    queue.enqueue(xPos_);
+    queue.enqueue(yPos_ + radius);
 
-    queue.push(xPos_);
-    queue.push(yPos_ - radius);
+    queue.enqueue(xPos_);
+    queue.enqueue(yPos_ - radius);
 
-    queue.push(xPos_ + radius);
-    queue.push(yPos_);
+    queue.enqueue(xPos_ + radius);
+    queue.enqueue(yPos_);
 
-    queue.push(xPos_ - radius);
-    queue.push(yPos_);
+    queue.enqueue(xPos_ - radius);
+    queue.enqueue(yPos_);
 
     while(x < y)
     {
@@ -50,35 +50,35 @@ void Animal::circle(std::queue<int> &queue, int radius)
         ddF_x += 2;
         f += ddF_x + 1;
 
-        queue.push(xPos_ + x);
-        queue.push(yPos_ + y);
+        queue.enqueue(xPos_ + x);
+        queue.enqueue(yPos_ + y);
 
-        queue.push(xPos_ - x);
-        queue.push(yPos_ + y);
+        queue.enqueue(xPos_ - x);
+        queue.enqueue(yPos_ + y);
 
-        queue.push(xPos_ + x);
-        queue.push(yPos_ - y);
+        queue.enqueue(xPos_ + x);
+        queue.enqueue(yPos_ - y);
 
-        queue.push(xPos_ - x);
-        queue.push(yPos_ - y);
+        queue.enqueue(xPos_ - x);
+        queue.enqueue(yPos_ - y);
 
-        queue.push(xPos_ + y);
-        queue.push(yPos_ + x);
+        queue.enqueue(xPos_ + y);
+        queue.enqueue(yPos_ + x);
 
-        queue.push(xPos_ - y);
-        queue.push(yPos_ + x);
+        queue.enqueue(xPos_ - y);
+        queue.enqueue(yPos_ + x);
 
-        queue.push(xPos_ + y);
-        queue.push(yPos_ - x);
+        queue.enqueue(xPos_ + y);
+        queue.enqueue(yPos_ - x);
 
-        queue.push(xPos_ - y);
-        queue.push(yPos_ - x);
+        queue.enqueue(xPos_ - y);
+        queue.enqueue(yPos_ - x);
     }
 }
 
 bool Animal::smellSense()
 {
-    std::queue<int> sightings;
+    QQueue<int> sightings;
     for (int i = currentState_->getSmellRange(); i > 0; i--)
         circle(sightings, i);
 
@@ -89,9 +89,9 @@ bool Animal::smellSense()
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
         xBuf = sightings.front();
-        sightings.pop();
+        sightings.dequeue();
         yBuf = sightings.front();
-        sightings.pop();
+        sightings.dequeue();
 
         //TODO: wenn Smellpool-Test true
         /*
@@ -105,7 +105,7 @@ bool Animal::smellSense()
 
 bool Animal::sightSense()
 {
-    std::queue<int> sightings;
+    QQueue<int> sightings;
     for (int i = currentState_->getSightRange(); i > 0; i--)
         circle(sightings, i);
 
@@ -116,9 +116,9 @@ bool Animal::sightSense()
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
         xBuf = sightings.front();
-        sightings.pop();
+        sightings.dequeue();
         yBuf = sightings.front();
-        sightings.pop();
+        sightings.dequeue();
 
         //TODO: wenn Sicht-Test true
         /*

@@ -1,7 +1,7 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
 
-#include <queue>
+#include <QQueue>
 #include "animalstate.h"
 #include "calmstate.h"
 #include "warnedstate.h"
@@ -27,7 +27,7 @@ private:
     int destinationY_;
     AnimalState* currentState_;
 
-    void circle(std::queue<int>& queue, int radius);
+    void circle(QQueue<int>& queue, int radius);
     bool sightSense();
     bool smellSense();
 

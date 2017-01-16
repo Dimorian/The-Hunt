@@ -1,7 +1,7 @@
 #include "calmstate.h"
 #include <time.h>
 #include <stdlib.h>
-#include <vector>
+#include <QVector>
 
 #include "animal.h"
 
@@ -36,7 +36,7 @@ void CalmState::move(Animal* animal)
     int yPos = animal->yPos_;
     int xBuf, yBuf;
 
-    std::vector<int> changes;
+    QVector<int> changes;
 
     for (int x = -1; x <= 1; x++)
         for (int y = -1; y <= 1; y++){
@@ -55,4 +55,6 @@ void CalmState::move(Animal* animal)
     }while(false);   //TODO: Abfrage der World über Vermittlerklasse in animal, ob Feld begehbar
 
     //TODO: Zuweisung auf animal Position
+    animal->xPos_ += xBuf;
+    animal->yPos_ += yBuf;
 }
