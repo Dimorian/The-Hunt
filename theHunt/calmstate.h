@@ -10,7 +10,7 @@ class CalmState : public AnimalState
 public:
     CalmState();
 
-    void update(Animal* animal);
+    AnimalState* update(Animal* animal);
     void move(Animal* animal);
 };
 

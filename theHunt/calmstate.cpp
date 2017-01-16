@@ -4,6 +4,7 @@
 #include <QVector>
 
 #include "animal.h"
+#include "warnedstate.h"
 
 CalmState::CalmState()
 {
@@ -11,22 +12,18 @@ CalmState::CalmState()
     smellRange_ = 3;
 }
 
-void CalmState::update(Animal* animal)
+AnimalState* CalmState::update(Animal* animal)
 {
     animal->sightingX_ = 0;
     animal->sightingY_ = 0;
 
-    bool change = false;
-    change = animal->smellSense();
-    if(change)
-        animal->sightSense();
-    else
-        change = animal->sightSense();
+    animal->smellSense();
+    animal->sightSense();
 
-    if(change)
-        //animal->currentState_ = &Animal::warned;  //undefined reference error
+    if(animal->sightingX_ != 0 || animal->sightingY_ != 0)  //nicht optimal
+        return new WarnedState;
 
-    animal->move();
+    return NULL;
 }
 
 void CalmState::move(Animal* animal)

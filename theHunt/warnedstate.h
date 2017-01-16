@@ -7,10 +7,12 @@ class Animal;
 
 class WarnedState : public AnimalState
 {
+private:
+    int turnsLeft_;
 public:
     WarnedState();
 
-    void update(Animal* animal);
+    AnimalState* update(Animal* animal);
     void move(Animal* animal);
 };
 

@@ -2,12 +2,13 @@
 #include "animal.h"
 
 WarnedState::WarnedState()
+    : turnsLeft_ (2)
 {
     sightRange_ = 6;
     smellRange_ = 4;
 }
 
-void WarnedState::update(Animal* animal)
+AnimalState* WarnedState::update(Animal* animal)
 {
     animal->sightingX_ = 0;
     animal->sightingY_ = 0;
@@ -15,7 +16,8 @@ void WarnedState::update(Animal* animal)
     animal->smellSense();
     animal->sightSense();
 
-    animal->move();
+    turnsLeft_ --;
+    //TODO: Übergang
 }
 
 void WarnedState::move(Animal* animal)

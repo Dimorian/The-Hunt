@@ -10,7 +10,7 @@ public:
     int getSightRange() {return sightRange_;}
 
     AnimalState(){}
-    virtual void update(Animal* animal) = 0;
+    virtual AnimalState* update(Animal* animal) = 0;
     virtual void move(Animal* animal) = 0;
 
 protected:
