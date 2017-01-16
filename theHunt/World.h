@@ -30,30 +30,18 @@ private:
     Terrain* tiles_[WIDTH][HEIGHT];
 
     //edited:
-    Drawable* terrainDrawables_[WIDTH][HEIGHT];
-    QList<TriangleMesh*> meshs_;
+    int terrainDrawables_[WIDTH][HEIGHT];
     //
 
 public:
 
-    //edited:  parameter ergänzt
-    World(QString path);
-    inline QList<Drawable*>* getDrawables();
+    //edited:
+    World();
+    int getTileAt(int i, int j);
     //
-
     Terrain* getTile(int x, int y);
 };
 
-inline QList<Drawable*>* World::getDrawables(){
-    QList<Drawable*>* ptrs = new QList<Drawable*>;
-    for (int i = 0; i<WIDTH; i++)
-    {
-        for (int j = 0; j<HEIGHT; j++)
-        {
-            ptrs->append(terrainDrawables_[i][j]);
-        }
-    }
-    return ptrs;
-}
+
 
 #endif // WORLD_H
