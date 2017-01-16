@@ -1,7 +1,7 @@
 #include "animal.h"
 
-Animal::Animal(AnimatedModel* model_) : Kreatur ( model_)
-	, sightingX_(0),
+Animal::Animal()
+    : sightingX_(0),
       sightingY_(0),
       destinationX_(0),
       destinationY_(0)
@@ -28,28 +28,17 @@ void Animal::circle(QQueue<int> &queue, int radius)
     int x = 0;
     int y = radius;
 
-	queue.enqueue(position_.x());
-	queue.enqueue(position_.z() + radius);
+    queue.enqueue(xPos_);
+    queue.enqueue(yPos_ + radius);
 
-	queue.enqueue(position_.x());
-	queue.enqueue(position_.z() - radius);
+    queue.enqueue(xPos_);
+    queue.enqueue(yPos_ - radius);
 
-	queue.enqueue(position_.x() + radius);
-	queue.enqueue(position_.z());
+    queue.enqueue(xPos_ + radius);
+    queue.enqueue(yPos_);
 
-	queue.enqueue(position_.x() - radius);
-	queue.enqueue(position_.z());
-//    queue.enqueue(xPos_);
-//    queue.enqueue(yPos_ + radius);
-
-//    queue.enqueue(xPos_);
-//    queue.enqueue(yPos_ - radius);
-
-//    queue.enqueue(xPos_ + radius);
-//    queue.enqueue(yPos_);
-
-//    queue.enqueue(xPos_ - radius);
-//    queue.enqueue(yPos_);
+    queue.enqueue(xPos_ - radius);
+    queue.enqueue(yPos_);
 
     while(x < y)
     {
@@ -63,58 +52,30 @@ void Animal::circle(QQueue<int> &queue, int radius)
         ddF_x += 2;
         f += ddF_x + 1;
 
-//        queue.enqueue(xPos_ + x);
-//        queue.enqueue(yPos_ + y);
+        queue.enqueue(xPos_ + x);
+        queue.enqueue(yPos_ + y);
 
-//        queue.enqueue(xPos_ - x);
-//        queue.enqueue(yPos_ + y);
+        queue.enqueue(xPos_ - x);
+        queue.enqueue(yPos_ + y);
 
-//        queue.enqueue(xPos_ + x);
-//        queue.enqueue(yPos_ - y);
+        queue.enqueue(xPos_ + x);
+        queue.enqueue(yPos_ - y);
 
-//        queue.enqueue(xPos_ - x);
-//        queue.enqueue(yPos_ - y);
+        queue.enqueue(xPos_ - x);
+        queue.enqueue(yPos_ - y);
 
-//        queue.enqueue(xPos_ + y);
-//        queue.enqueue(yPos_ + x);
+        queue.enqueue(xPos_ + y);
+        queue.enqueue(yPos_ + x);
 
-//        queue.enqueue(xPos_ - y);
-//        queue.enqueue(yPos_ + x);
+        queue.enqueue(xPos_ - y);
+        queue.enqueue(yPos_ + x);
 
-//        queue.enqueue(xPos_ + y);
-//        queue.enqueue(yPos_ - x);
+        queue.enqueue(xPos_ + y);
+        queue.enqueue(yPos_ - x);
 
-//        queue.enqueue(xPos_ - y);
-//        queue.enqueue(yPos_ - x);
-
-
-
-		queue.enqueue(position_.x() + x);
-		queue.enqueue(position_.y() + y);
-
-		queue.enqueue(position_.x() - x);
-		queue.enqueue(position_.y() + y);
-
-		queue.enqueue(position_.x() + x);
-		queue.enqueue(position_.y() - y);
-
-		queue.enqueue(position_.x() - x);
-		queue.enqueue(position_.y() - y);
-
-		queue.enqueue(position_.x() + y);
-		queue.enqueue(position_.y() + x);
-
-		queue.enqueue(position_.x() - y);
-		queue.enqueue(position_.y() + x);
-
-		queue.enqueue(position_.x() + y);
-		queue.enqueue(position_.y() - x);
-
-		queue.enqueue(position_.x() - y);
-		queue.enqueue(position_.y() - x);
-
+        queue.enqueue(xPos_ - y);
+        queue.enqueue(yPos_ - x);
     }
-
 }
 
 void Animal::smellSense()
@@ -137,7 +98,6 @@ void Animal::smellSense()
             sightingY_=(sightingY_+yBuf+1)/2;
         }*/
     }
-    return true;
 }
 
 void Animal::sightSense()
@@ -145,10 +105,6 @@ void Animal::sightSense()
     QQueue<int> sightings;
     for (int i = currentState_->getSightRange(); i > 0; i--)
         circle(sightings, i);
-
-    //Ausstieg wenn keine Sichtung
-    if(sightings.size()==0)
-        return false;
 
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
@@ -164,5 +120,4 @@ void Animal::sightSense()
             sightingY_=(sightingY_+yBuf*2+1)/3;
         }*/
     }
-    return true;
 }
