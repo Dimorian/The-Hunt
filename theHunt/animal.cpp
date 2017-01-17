@@ -1,19 +1,21 @@
 #include "animal.h"
+#include "smellpool.h"
 
-Animal::Animal(AnimatedModel* model_) : Kreatur ( model_)
-	, sightingX_(0),
+Animal::Animal(AnimatedModel* model_)
+    : Kreatur ( model_),
+      sightingX_(0),
       sightingY_(0),
       destinationX_(0),
       destinationY_(0)
 {
 }
 
-void Animal::update()
+void Animal::update(SmellPool* smellpool, World* world)
 {
     sightingX_ = 0;
     sightingY_ = 0;
 
-    smellSense();
+    smellSense(smellpool);
     sightSense();
 
     AnimalState* state = currentState_->update(this);
@@ -22,7 +24,7 @@ void Animal::update()
         currentState_ = state;
     }
 
-    currentState_->move(this);
+    currentState_->move(this, world);
 }
 
 void Animal::circle(QQueue<int> &queue, int radius)
@@ -33,17 +35,18 @@ void Animal::circle(QQueue<int> &queue, int radius)
     int x = 0;
     int y = radius;
 
-	queue.enqueue(position_.x());
-	queue.enqueue(position_.z() + radius);
+    queue.enqueue((position_.x()+14)/2);
+    queue.enqueue((position_.z()+14)/2 + radius);
 
-	queue.enqueue(position_.x());
-	queue.enqueue(position_.z() - radius);
+    queue.enqueue((position_.x()+14)/2);
+    queue.enqueue((position_.z()+14)/2 - radius);
 
-	queue.enqueue(position_.x() + radius);
-	queue.enqueue(position_.z());
+    queue.enqueue((position_.x()+14)/2 + radius);
+    queue.enqueue((position_.z()+14)/2);
 
-	queue.enqueue(position_.x() - radius);
-	queue.enqueue(position_.z());
+    queue.enqueue((position_.x()+14)/2 - radius);
+    queue.enqueue((position_.z()+14)/2);
+
 //    queue.enqueue(xPos_);
 //    queue.enqueue(yPos_ + radius);
 
@@ -92,37 +95,35 @@ void Animal::circle(QQueue<int> &queue, int radius)
 //        queue.enqueue(xPos_ - y);
 //        queue.enqueue(yPos_ - x);
 
+        queue.enqueue((position_.x()+14)/2 + x);
+        queue.enqueue((position_.z()+14)/2 + y);
 
+        queue.enqueue((position_.x()+14)/2 - x);
+        queue.enqueue((position_.z()+14)/2 + y);
 
-		queue.enqueue(position_.x() + x);
-		queue.enqueue(position_.y() + y);
+        queue.enqueue((position_.x()+14)/2 + x);
+        queue.enqueue((position_.z()+14)/2 - y);
 
-		queue.enqueue(position_.x() - x);
-		queue.enqueue(position_.y() + y);
+        queue.enqueue((position_.x()+14)/2 - x);
+        queue.enqueue((position_.z()+14)/2 - y);
 
-		queue.enqueue(position_.x() + x);
-		queue.enqueue(position_.y() - y);
+        queue.enqueue((position_.x()+14)/2 + y);
+        queue.enqueue((position_.z()+14)/2 + x);
 
-		queue.enqueue(position_.x() - x);
-		queue.enqueue(position_.y() - y);
+        queue.enqueue((position_.x()+14)/2 - y);
+        queue.enqueue((position_.z()+14)/2 + x);
 
-		queue.enqueue(position_.x() + y);
-		queue.enqueue(position_.y() + x);
+        queue.enqueue((position_.x()+14)/2 + y);
+        queue.enqueue((position_.z()+14)/2 - x);
 
-		queue.enqueue(position_.x() - y);
-		queue.enqueue(position_.y() + x);
-
-		queue.enqueue(position_.x() + y);
-		queue.enqueue(position_.y() - x);
-
-		queue.enqueue(position_.x() - y);
-		queue.enqueue(position_.y() - x);
+        queue.enqueue((position_.x()+14)/2 - y);
+        queue.enqueue((position_.z()+14)/2 - x);
 
     }
 
 }
 
-void Animal::smellSense()
+void Animal::smellSense(SmellPool* smellpool)
 {
     QQueue<int> sightings;
     for (int i = currentState_->getSmellRange(); i > 0; i--)
@@ -135,12 +136,10 @@ void Animal::smellSense()
         yBuf = sightings.front();
         sightings.dequeue();
 
-        //TODO: wenn Smellpool-Test true
-        /*
-        if (){
+        if (smellpool->isSmell(xBuf, yBuf)){
             sightingX_=(sightingX_+xBuf+1)/2;
             sightingY_=(sightingY_+yBuf+1)/2;
-        }*/
+        }
     }
 }
 

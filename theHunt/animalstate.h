@@ -2,6 +2,7 @@
 #define ANIMALSTATE_H
 
 class Animal;
+class World;
 
 class AnimalState
 {
@@ -12,7 +13,7 @@ public:
     AnimalState(){}
 	virtual ~AnimalState(){}
     virtual AnimalState* update(Animal* animal) = 0;
-    virtual void move(Animal* animal) = 0;
+    virtual void move(Animal* animal, World* world) = 0;
 
 protected:
     int sightRange_;

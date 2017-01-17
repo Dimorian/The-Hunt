@@ -7,6 +7,9 @@
 #include "warnedstate.h"
 //TODO: include Verwaltungsklasse für Sinnetests
 
+class SmellPool;
+class World;
+
 class Animal : public Kreatur
 {   
 friend class CalmState;
@@ -26,11 +29,11 @@ private:
 
     void circle(QQueue<int>& queue, int radius);
     void sightSense();
-    void smellSense();
+    void smellSense(SmellPool* smellpool);
 
 public:
 	Animal(AnimatedModel* model_);
-    void update();
+    void update(SmellPool* smellpool, World* world);
 };
 
 #endif // ANIMAL_H

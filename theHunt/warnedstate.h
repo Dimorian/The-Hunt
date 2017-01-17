@@ -13,7 +13,7 @@ public:
     WarnedState();
 
     AnimalState* update(Animal* animal);
-    void move(Animal* animal);
+    void move(Animal* animal, World* world);
 };
 
 #endif // WARNEDSTATE_H
