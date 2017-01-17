@@ -19,6 +19,7 @@ void SceneManager::initScenes()
 {
 
     Camera *cam = new Camera();
+    cam->setPosition(QVector3D(0.0f, 1.0f, 30.0f));
     RenderingContext *myContext=new RenderingContext(cam);
     unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
     unsigned int myScene = SceneManager::instance()->addScene(initScene1());
@@ -93,13 +94,13 @@ srand(time(NULL));
 			m->setShininess(80.);
 			trans = drawables.back()->getProperty<ModelTransformation>();
 
-			trans->translate(i*2.0 -14.0, 0.0, j*2.0 - 14.0);
+            trans->translate(i*2.0 -14.0, 0.0, j*2.0 - 14.0);
 			trans->rotate(90.0 * (double)(rand()%4),0.0,1.0,0.0);
 		}
 	}
 	for( auto n : drawables )
 	{
-		std::cout << "test"<<std::endl;
+        //std::cout << "test"<<std::endl;
 		nodes.append( new Node(n) );
 		keyNode->addChild(nodes.back());
 	}
@@ -108,7 +109,7 @@ srand(time(NULL));
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
     kTrans->setRotspeed(2.0);
 
-    worldLeaning->rotate(20.0, 1.0, 0.0, 0.0);
+    worldLeaning->rotate(30.0, 1.0, 0.0, 0.0);
     worldLeaning->rotate(45.0, 0.0, 1.0, 0.0);
 
     //Object Initialization
