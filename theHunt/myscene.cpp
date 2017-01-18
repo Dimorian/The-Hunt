@@ -249,22 +249,38 @@ srand(time(NULL));
 
     //Anzeige des Tiers
 
-	AnimatedModel* AnimalModel = new AnimatedModel(path+QString("/../Models/AnimalStand"), 1);
+	AnimatedModel* AnimalModel = new AnimatedModel(path+QString("/../Models/Elch"), 1);
 	t = AnimalModel->getProperty<Texture>();
-    t->loadPicture(path + QString("/../Textures/RehTexture.png"));
+	t->loadPicture(path + QString("/../Textures/Elch.png"));
 	AnimalModel->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 	m = AnimalModel->getProperty<Material>();
     m->setDiffuse(1., 1., 1., 1.);
     m->setAmbient(.5, .5, .5, 1.);
     m->setSpecular(1., 1., 1., 1.);
     m->setShininess(80.);
-    trans = drawables.back()->getProperty<ModelTransformation>();
+
 
 	keyNode->addChild(new Node(AnimalModel));
 
     //Player Inistialisierung
 
-    Player *player = new Player(AnimalModel);
+
+//	AnimatedModel* PlayerModel = new AnimatedModel(path+QString("/../Models/Baer"), 1);
+//	t = PlayerModel->getProperty<Texture>();
+//	t->loadPicture(path + QString("/../Textures/Baer.png"));
+//	PlayerModel->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
+//	m = PlayerModel->getProperty<Material>();
+//	m->setDiffuse(1., 1., 1., 1.);
+//	m->setAmbient(.5, .5, .5, 1.);
+//	m->setSpecular(1., 1., 1., 1.);
+//	m->setShininess(80.);
+
+
+	//keyNode->addChild(new Node(PlayerModel));
+	//
+
+
+	Player *player = new Player(AnimalModel);
     int xBuf, yBuf;
     do{
         xBuf = rand()%8;
