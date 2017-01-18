@@ -6,12 +6,14 @@
 #include "smellpool.h"
 #include "camera.h"
 #include "World.h"
+#include "player.h"
+#include "wind.h"
 class Controller : public IdleObserver
 {
 public:
 
 	//ToDo: Konstruktor um Spielerptr erweitern, sobald vorhanden
-	Controller(Camera* cam, Animal* animal, SmellPool* smellpool, World* world);
+    Controller(Camera* cam, Animal* animal, SmellPool* smellpool, World* world, Player* player, Wind* wind);
 
 	void doIt() override;
 private:
@@ -20,6 +22,8 @@ private:
 	Animal* animal_;
 	SmellPool* smellpool_;
 	World* world_;
+    Player* player_;
+    Wind* wind_;
 
 };
 

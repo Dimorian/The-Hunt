@@ -1,5 +1,6 @@
 #include "animal.h"
 #include "smellpool.h"
+#include "player.h"
 
 Animal::Animal(AnimatedModel* model_)
     : Kreatur ( model_),
@@ -10,13 +11,13 @@ Animal::Animal(AnimatedModel* model_)
 {
 }
 
-void Animal::update(SmellPool* smellpool, World* world)
+void Animal::update(SmellPool* smellpool, World* world, Player* player)
 {
     sightingX_ = 0;
     sightingY_ = 0;
 
     smellSense(smellpool);
-    sightSense();
+    sightSense(player);
 
     AnimalState* state = currentState_->update(this);
     if(state != NULL){
@@ -143,7 +144,7 @@ void Animal::smellSense(SmellPool* smellpool)
     }
 }
 
-void Animal::sightSense()
+void Animal::sightSense(Player* player)
 {
     QQueue<int> sightings;
     for (int i = currentState_->getSightRange(); i > 0; i--)
@@ -156,11 +157,13 @@ void Animal::sightSense()
         yBuf = sightings.front();
         sightings.dequeue();
 
-        //TODO: wenn Sicht-Test true
-        /*
-        if (){
+        int playerPosX = (player->getPosition()->x()+14)/2;
+        int playerPosY = (player->getPosition()->z()+14)/2;
+
+        if (xBuf == playerPosX && yBuf == playerPosY){
             sightingX_=(sightingX_+xBuf*2+1)/3;
             sightingY_=(sightingY_+yBuf*2+1)/3;
-        }*/
+            return;
+        }
     }
 }

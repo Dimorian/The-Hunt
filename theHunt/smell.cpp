@@ -5,10 +5,12 @@ Smell::Smell()
 {
 }
 
-void Smell::init(int intensity, bool effect)
+void Smell::init(int intensity, bool effect, int x, int y)
 {
     turnsLeft_=intensity;
     positiv_=effect;
+    xPos_=x;
+    yPos_=y;
 }
 
 void Smell::animate(int windX, int windY)

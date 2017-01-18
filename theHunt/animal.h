@@ -9,6 +9,7 @@
 
 class SmellPool;
 class World;
+class Player;
 
 class Animal : public Kreatur
 {   
@@ -28,12 +29,12 @@ private:
     AnimalState* currentState_;
 
     void circle(QQueue<int>& queue, int radius);
-    void sightSense();
+    void sightSense(Player* player);
     void smellSense(SmellPool* smellpool);
 
 public:
 	Animal(AnimatedModel* model_);
-    void update(SmellPool* smellpool, World* world);
+    void update(SmellPool* smellpool, World* world, Player* player);
 };
 
 #endif // ANIMAL_H

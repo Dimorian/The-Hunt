@@ -12,7 +12,7 @@ public:
     SmellPool();
 
     void animate(int windX, int windY);
-    void create(int intensity, bool effect);
+    void create(int intensity, bool effect, int x, int y);
     bool isSmell(int x, int y);
 };
 

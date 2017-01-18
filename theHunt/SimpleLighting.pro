@@ -27,7 +27,9 @@ SOURCES += myscene.cpp \
     controller.cpp \
     kreatur.cpp \
     animatedmodel.cpp \
-    warnedstate.cpp
+    warnedstate.cpp \
+    player.cpp \
+    wind.cpp
 
 HEADERS += \
     world.h \
@@ -40,7 +42,9 @@ HEADERS += \
     controller.h \
     kreatur.h \
     animatedmodel.h \
-    warnedstate.h
+    warnedstate.h \
+    player.h \
+    wind.h
 
 RESOURCES += \
     MyShaders.qrc

@@ -10,7 +10,7 @@ private:
     bool positiv_;
 public:
     Smell();
-    void init(int intensity, bool effect);
+    void init(int intensity, bool effect, int x, int y);
     void animate(int windX, int windY);
     bool inUse() const;
     int getX() const {return xPos_;}
