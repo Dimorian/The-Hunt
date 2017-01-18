@@ -139,16 +139,17 @@ srand(time(NULL));
 
     //Anzeige des Tiers
 
-    Drawable* animal = new Drawable(new AnimatedModel(path+QString("/../Models/"), 1));
-    t = animal->setProperty<Texture>();
+	AnimatedModel* AnimalModel = new AnimatedModel(path+QString("/../Models/AnimalStand"), 1);
+	t = AnimalModel->getProperty<Texture>();
     t->loadPicture(path + QString("/../Textures/RehTexture.png"));
-    animal->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
-    m = animal->getProperty<Material>();
+	AnimalModel->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
+	m = AnimalModel->getProperty<Material>();
     m->setDiffuse(1., 1., 1., 1.);
     m->setAmbient(.5, .5, .5, 1.);
     m->setSpecular(1., 1., 1., 1.);
     m->setShininess(80.);
     trans = drawables.back()->getProperty<ModelTransformation>();
+
 
 
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
