@@ -55,8 +55,42 @@ srand(time(NULL));
     Node *worldNode = new Node(worldLeaning);
 
 
-	//Anzeige der Map:
 	World *w = new World();
+	//Wind:
+	TriangleMesh *windMesh = new TriangleMesh(path+QString("/../Models/Wind.obj"));
+	QList<Node*> WindNodes;
+	QList<Drawable*> WindDrawables;
+	ShaderTimed *s= ShaderManager::getShader<ShaderTimed>("://shaders/wind.vert", "://shaders/wind.frag");
+	s->setMsecsPerIteration(2000);
+
+	for(int i = 0; i < 3; i++){
+
+		WindDrawables.append(new Drawable(windMesh));
+		WindDrawables.back()->setShader(s);
+		m = WindDrawables.back()->getProperty<Material>();
+		m->setDiffuse(1., 1., 1., 1.);
+		m->setAmbient(1., 1., 1., 1.);
+		m->setSpecular(1., 1., 1., 1.);
+		m->setShininess(80.);
+		trans =  WindDrawables.back()->getProperty<ModelTransformation>();
+		trans->translate(0.0, 0.0, 0.0);
+		trans->rotate(180.0,0.0,1.0,0.0);
+		trans->scale(0.3, 0.3, 0.3);
+
+
+		std::cout << WindDrawables.size()<<std::endl;
+		//WindNodes.append(new Node(WindDrawables.back()));
+		//keyNode->addChild(WindNodes.back());
+	}
+	for( auto n : WindDrawables )
+	{
+		//std::cout << "test"<<std::endl;
+		WindNodes.append( new Node(n) );
+		keyNode->addChild(WindNodes.back());
+	}
+	//
+	//Anzeige der Map:
+
 
 	QList<TriangleMesh*> meshs;
 	meshs.append(new TriangleMesh(path+QString("/../Models/Bodenblock.obj")));
