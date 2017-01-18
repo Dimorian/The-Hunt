@@ -16,7 +16,7 @@ CalmState::CalmState()
 AnimalState* CalmState::update(Animal* animal)
 {
     if(animal->sightingX_ != 0 || animal->sightingY_ != 0)  //nicht optimal
-        return new WarnedState;
+        return new WarnedState();
 
     return NULL;
 }

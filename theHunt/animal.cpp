@@ -131,12 +131,13 @@ void Animal::smellSense(SmellPool* smellpool)
     for (int i = currentState_->getSmellRange(); i > 0; i--)
         circle(sightings, i);
 
+    if(sightings.isEmpty())
+        return;
+
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
-        xBuf = sightings.front();
-        sightings.dequeue();
-        yBuf = sightings.front();
-        sightings.dequeue();
+        xBuf = sightings.dequeue();
+        yBuf = sightings.dequeue();
 
         if (smellpool->isSmell(xBuf, yBuf)){
             sightingX_=(sightingX_+xBuf+1)/2;
@@ -151,12 +152,13 @@ void Animal::sightSense(Player* player)
     for (int i = currentState_->getSightRange(); i > 0; i--)
         circle(sightings, i);
 
+    if(sightings.isEmpty())
+        return;
+
     int xBuf, yBuf;
     for (int i = sightings.size()/2; i >= 0; i--){
-        xBuf = sightings.front();
-        sightings.dequeue();
-        yBuf = sightings.front();
-        sightings.dequeue();
+        xBuf = sightings.dequeue();
+        yBuf = sightings.dequeue();
 
         int playerPosX = (player->getPosition()->x()+14)/2;
         int playerPosY = (player->getPosition()->z()+14)/2;
