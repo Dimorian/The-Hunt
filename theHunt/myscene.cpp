@@ -105,12 +105,17 @@ srand(time(NULL));
 
 	QList<TriangleMesh*> meshs;
 	meshs.append(new TriangleMesh(path+QString("/../Models/Bodenblock.obj")));
-	meshs.append(new TriangleMesh(path+QString("/../Models/Baum.obj")));
+    meshs.append(new TriangleMesh(path+QString("/../Models/Baum.obj")));
+    meshs.append(new TriangleMesh(path+QString("/../Models/Tanne.obj")));
 	QList<Drawable*> drawables;
 	QList<Node*> nodes;
 
+    TriangleMesh* steinMesh = new TriangleMesh(path+QString("/../Models/Stein.obj"));
+
     Texture* bodenblock = new Texture(path+QString("/../Textures/BodenblockTexture.png"));
     Texture* baum = new Texture(path+QString("/../Textures/BaumTexture.png"));
+    Texture* tanne = new Texture(path+QString("/../Textures/TanneTexture.png"));
+    Texture* stein = new Texture(path+QString("/../Textures/SteinTexture.png"));
 
 	for (int i = 0; i<WIDTH; i++)
 	{
@@ -123,10 +128,20 @@ srand(time(NULL));
 				drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 				break;
 			case 2:
-				drawables.append( new Drawable(meshs.at(1)));
+                drawables.append( new Drawable(meshs.at(1)));
                 drawables.back()->setProperty<Texture>(baum);
 				drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 				break;
+            case 3:
+                drawables.append( new Drawable(meshs.at(2)));
+                drawables.back()->setProperty<Texture>(tanne);
+                drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
+                break;
+            case 4:
+                drawables.append( new Drawable(steinMesh));
+                drawables.back()->setProperty<Texture>(stein);
+                drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
+                break;
 			}
 			m = drawables.back()->getProperty<Material>();
 			m->setDiffuse(1., 1., 1., 1.);
@@ -174,10 +189,10 @@ srand(time(NULL));
 
 
 
-    kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
+    kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'e', KeyboardTransformation::NoKey);
     kTrans->setRotspeed(2.0);
 
-    worldLeaning->rotate(30.0, 1.0, 0.0, 0.0);
+    worldLeaning->rotate(45.0, 1.0, 0.0, 0.0);
     worldLeaning->rotate(45.0, 0.0, 1.0, 0.0);
 
     light1->setDiffuse(0.7, 0.7, 0.7);

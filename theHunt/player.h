@@ -3,11 +3,13 @@
 
 #include "kreatur.h"
 
+class World;
+
 class Player : public Kreatur
 {
 public:
     Player(AnimatedModel* model_);
-    void handleInput(int key);
+    void handleInput(int key, World* world);
 };
 
 #endif // PLAYER_H

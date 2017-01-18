@@ -17,6 +17,7 @@ public:
 
 	void doIt() override;
 private:
+    int wait_;
 
 	Camera* cam_;
 	Animal* animal_;

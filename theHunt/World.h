@@ -24,7 +24,9 @@ class World
 private:
     //Terrain-Typen
     Terrain grassTerrain_;
-    Terrain blockTerrain_;
+    Terrain baumTerrain_;
+    Terrain tanneTerrain_;
+    Terrain steinTerrain_;
 
 
     Terrain* tiles_[WIDTH][HEIGHT];
