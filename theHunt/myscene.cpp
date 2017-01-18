@@ -153,6 +153,7 @@ srand(time(NULL));
     m->setShininess(80.);
     trans = drawables.back()->getProperty<ModelTransformation>();
 
+	keyNode->addChild(new Node(AnimalModel));
 
 
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
