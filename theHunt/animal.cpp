@@ -61,6 +61,7 @@ void Animal::circle(QQueue<int> &queue, int radius)
 //    queue.enqueue(xPos_ - radius);
 //    queue.enqueue(yPos_);
 
+    if(radius < 1)
     while(x < y)
     {
         if(f >= 0)
@@ -135,15 +136,17 @@ void Animal::smellSense(SmellPool* smellpool)
         return;
 
     int xBuf, yBuf;
-    for (int i = sightings.size()/2; i >= 0; i--){
-        xBuf = sightings.dequeue();
-        yBuf = sightings.dequeue();
+    do{
+        if(!sightings.isEmpty())
+            xBuf = sightings.dequeue();
+        if(!sightings.isEmpty())
+            yBuf = sightings.dequeue();
 
         if (smellpool->isSmell(xBuf, yBuf)){
             sightingX_=(sightingX_+xBuf+1)/2;
             sightingY_=(sightingY_+yBuf+1)/2;
         }
-    }
+    }while(!sightings.isEmpty());
 }
 
 void Animal::sightSense(Player* player)
@@ -156,9 +159,11 @@ void Animal::sightSense(Player* player)
         return;
 
     int xBuf, yBuf;
-    for (int i = sightings.size()/2; i >= 0; i--){
-        xBuf = sightings.dequeue();
-        yBuf = sightings.dequeue();
+    do{
+        if(!sightings.isEmpty())
+            xBuf = sightings.dequeue();
+        if(!sightings.isEmpty())
+            yBuf = sightings.dequeue();
 
         int playerPosX = (player->getPosition()->x()+14)/2;
         int playerPosY = (player->getPosition()->z()+14)/2;
@@ -168,5 +173,5 @@ void Animal::sightSense(Player* player)
             sightingY_=(sightingY_+yBuf*2+1)/3;
             return;
         }
-    }
+    }while(!sightings.isEmpty());
 }
