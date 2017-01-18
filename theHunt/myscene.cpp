@@ -61,7 +61,7 @@ srand(time(NULL));
     Node *keyNode = new Node(kTrans);
     Node *worldNode = new Node(worldLeaning);
 
-	Wind *wind = new Wind();
+
 	World *w = new World();
 	//Wind:
 	TriangleMesh *windMesh = new TriangleMesh(path+QString("/../Models/Wind.obj"));
@@ -70,7 +70,7 @@ srand(time(NULL));
 	ShaderTimed *s= ShaderManager::getShader<ShaderTimed>("://shaders/wind.vert", "://shaders/wind.frag");
 	s->setMsecsPerIteration(2000);
 
-	for(int i = 0; i < 3; i++){
+	for(int i = 0; i < 10; i++){
 
 		WindDrawables.append(new Drawable(windMesh));
 		WindDrawables.back()->setShader(s);
@@ -83,7 +83,7 @@ srand(time(NULL));
 		m->setSpecular(1., 1., 1., 1.);
 		m->setShininess(80.);
 		trans =  WindDrawables.back()->getProperty<ModelTransformation>();
-		trans->translate(0.0, 0.0, 0.0);
+		trans->translate(rand()%14, 2.0, rand()%14);
 		trans->rotate(180.0,0.0,1.0,0.0);
 		trans->scale(0.3, 0.3, 0.3);
 
@@ -98,6 +98,7 @@ srand(time(NULL));
 		WindNodes.append( new Node(n) );
 		keyNode->addChild(WindNodes.back());
 	}
+	Wind *wind = new Wind(&WindDrawables);
 	//
 	//Anzeige der Map:
 
@@ -166,7 +167,7 @@ srand(time(NULL));
 	Animal *animal = new Animal(AnimalModel);
 	SmellPool *smellpool = new SmellPool();
 	Player *player = new Player(AnimalModel);
-    Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
+	//Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
 
 
 

@@ -2,9 +2,10 @@
 #include <time.h>
 #include <stdlib.h>
 
-Wind::Wind()
+Wind::Wind(QList <Drawable*> *drawables)
 {
     srand(time(NULL));
+	drawables_ = drawables;
     xDir_ = rand()%3-1;
     yDir_ = rand()%3-1;
 }
