@@ -30,6 +30,7 @@ void Controller::doIt(){
             player_->handleInput('s');
         }
 
+
         smellpool_->animate(wind_->getX(), wind_->getY());
 
         //neue Geruchspartikel erstellen

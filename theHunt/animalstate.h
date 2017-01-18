@@ -7,8 +7,8 @@ class World;
 class AnimalState
 {
 public:
-    int getSmellRange() {return smellRange_;}
-    int getSightRange() {return sightRange_;}
+    int getSmellRange() const {return smellRange_;}
+    int getSightRange() const {return sightRange_;}
 
     AnimalState(){}
 	virtual ~AnimalState(){}

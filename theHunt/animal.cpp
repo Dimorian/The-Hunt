@@ -9,6 +9,7 @@ Animal::Animal(AnimatedModel* model_)
       destinationX_(0),
       destinationY_(0)
 {
+    currentState_ = new CalmState();
 }
 
 void Animal::update(SmellPool* smellpool, World* world, Player* player)

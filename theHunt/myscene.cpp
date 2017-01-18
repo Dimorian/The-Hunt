@@ -109,6 +109,8 @@ srand(time(NULL));
 	QList<Drawable*> drawables;
 	QList<Node*> nodes;
 
+    Texture* bodenblock = new Texture(path+QString("/../Textures/BodenblockTexture.png"));
+    Texture* baum = new Texture(path+QString("/../Textures/BaumTexture.png"));
 
 	for (int i = 0; i<WIDTH; i++)
 	{
@@ -117,15 +119,12 @@ srand(time(NULL));
 			switch(  w->getTileAt(i,j)  ){
 			case 1:
 				drawables.append( new Drawable(meshs.at(0)));
-				t = drawables.back()->getProperty<Texture>();
-				t->loadPicture(path+QString("/../Textures/BodenblockTexture.png"));
+                drawables.back()->setProperty<Texture>(bodenblock);
 				drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 				break;
 			case 2:
 				drawables.append( new Drawable(meshs.at(1)));
-				t = drawables.back()->getProperty<Texture>();
-				//ToDo: add block texture
-				t->loadPicture(path+QString("/../Textures/BaumTexture.png"));
+                drawables.back()->setProperty<Texture>(baum);
 				drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
 				break;
 			}
@@ -167,7 +166,7 @@ srand(time(NULL));
 	Animal *animal = new Animal(AnimalModel);
 	SmellPool *smellpool = new SmellPool();
 	Player *player = new Player(AnimalModel);
-	//Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
+    Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
 
 
 
