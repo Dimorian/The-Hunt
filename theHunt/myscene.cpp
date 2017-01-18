@@ -166,7 +166,7 @@ srand(time(NULL));
 	Animal *animal = new Animal(AnimalModel);
 	SmellPool *smellpool = new SmellPool();
 	Player *player = new Player(AnimalModel);
-	Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
+    Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
 
 
 

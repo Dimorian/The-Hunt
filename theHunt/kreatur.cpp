@@ -14,7 +14,7 @@ Kreatur::Kreatur(AnimatedModel* Model)
 }
 void Kreatur::update(){
 
-	model_->update( &position_, &richtung_);
+    model_->update( &position_, &richtung_);
 
 }
 

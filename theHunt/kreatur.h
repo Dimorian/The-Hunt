@@ -8,8 +8,6 @@ class Kreatur
 public:
 	Kreatur(AnimatedModel* model_);
 
-
-
 	void update();
 	void move(float faktor);
 	void rotate();

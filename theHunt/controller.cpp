@@ -44,4 +44,6 @@ void Controller::doIt(){
     }
 
     //...aller Stuff der jeden Zyklus durchgeführt wird...
+    //animal_->update();
+    player_->update();
 }
