@@ -19,6 +19,7 @@
 #include "wind.h"
 #include "player.h"
 #include "smellpool.h"
+
 Node *initScene1();
 
 Camera *cam;
@@ -26,8 +27,12 @@ Camera *cam;
 void SceneManager::initScenes()
 {
 
+
 	cam = new Camera();
-    cam->setPosition(QVector3D(0.0f, 1.0f, 30.0f));
+	cam->setPosition(QVector3D(0.66666, -16.35, 35.0));
+	cam->rotate(0.0,-30.0,0.0);
+
+
     RenderingContext *myContext=new RenderingContext(cam);
     unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
     unsigned int myScene = SceneManager::instance()->addScene(initScene1());
@@ -63,6 +68,87 @@ srand(time(NULL));
 
 
 	World *w = new World();
+
+	Shader* ss;
+	ss=ShaderManager::getShader(QString("/../Skybox/texture.vert"), QString("/../Skybox/texture.frag"));
+
+	// ===Skybox===
+
+	//Später als eigene Klasse implementieren mit bewegenden Wolken etc.
+
+	Drawable *Back = new Drawable(new TriangleMesh(path + QString("/../Skybox/Back.obj") ));
+	Drawable *Backsky = new Drawable(new TriangleMesh(path + QString("/../Skybox/Backsky.obj") ));
+	Drawable *Bottom = new Drawable(new TriangleMesh(path + QString("/../Skybox/Bottom.obj") ));
+	Drawable *Front = new Drawable(new TriangleMesh(path + QString("/../Skybox/Front.obj") ));
+	Drawable *Frontbottom = new Drawable(new TriangleMesh(path + QString("/../Skybox/Frontbottom.obj") ));
+	Drawable *Mist = new Drawable(new TriangleMesh(path + QString("/../Skybox/Mist.obj") ));
+	Drawable *TopSky= new Drawable(new TriangleMesh(path + QString("/../Skybox/TopSky.obj") ));
+
+
+
+	Node *BackNode = new Node(Back);
+	Node *BackskyNode = new Node(Backsky);
+	Node *BottomNode = new Node(Bottom);
+	Node *FrontNode = new Node(Front);
+	Node *FrontbottomNode = new Node(Frontbottom);
+	Node *MistNode = new Node(Mist);
+	Node *TopSkyNode = new Node(TopSky);
+
+
+	Transformation *SkyBoxScale = new Transformation();
+	SkyBoxScale->translate(0.0,-25.0,0.0);
+	SkyBoxScale->scale(0.7,0.7,0.7);
+	Node *SkyBoxScaleNode = new Node(SkyBoxScale);
+
+
+
+	keyNode->addChild(SkyBoxScaleNode);
+
+	SkyBoxScaleNode->addChild(BackNode);
+	SkyBoxScaleNode->addChild(BackskyNode);
+	SkyBoxScaleNode->addChild(BottomNode);
+	SkyBoxScaleNode->addChild(FrontNode);
+	SkyBoxScaleNode->addChild(FrontbottomNode);
+	SkyBoxScaleNode->addChild(MistNode);
+	SkyBoxScaleNode->addChild(TopSkyNode);
+
+	t = Back->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/back.png"));
+	Back->setShader(ss);
+	Back->setTransparent(true);
+
+	t = Backsky->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/backsky.png"));
+	Backsky->setShader(ss);
+	Backsky->setTransparent(true);
+
+	t = Bottom->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/bottom.png"));
+	Bottom->setShader(ss);
+	Bottom->setTransparent(true);
+
+	t = Front->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/front.png"));
+	Front->setShader(ss);
+	Front->setTransparent(true);
+
+	t = Frontbottom->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/frontbottom.png"));
+	Frontbottom->setShader(ss);
+	Frontbottom->setTransparent(true);
+
+	t = Mist->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/mist.png"));
+	Mist->setShader(ss);
+	Mist->setTransparent(true);
+
+	t = TopSky->getProperty<Texture>();
+	t->loadPicture(path + QString("/../Skybox/topsky.png"));
+	TopSky->setShader(ss);
+	TopSky->setTransparent(true);
+	// ===Skybox===
+
+
 	//Wind:
 	TriangleMesh *windMesh = new TriangleMesh(path+QString("/../Models/Wind.obj"));
 	QList<Node*> WindNodes;
