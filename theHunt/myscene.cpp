@@ -14,12 +14,19 @@
 #include "animatedmodel.h"
 #include <stdio.h>
 #include <time.h>
+#include "animal.h"
+#include "controller.h"
+#include "wind.h"
+#include "player.h"
+#include "smellpool.h"
 Node *initScene1();
+
+Camera *cam;
 
 void SceneManager::initScenes()
 {
 
-    Camera *cam = new Camera();
+	cam = new Camera();
     cam->setPosition(QVector3D(0.0f, 1.0f, 30.0f));
     RenderingContext *myContext=new RenderingContext(cam);
     unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
@@ -39,7 +46,7 @@ Node *initScene1()
 srand(time(NULL));
 
     SunLight* light1 = new SunLight();
-    Drawable *wind = new Drawable(new TriangleMesh(path+QString("/../Models/Wind.obj")));
+
     Drawable* leave = new Drawable(new TriangleMesh(path+QString("/../Models/Blatt.obj")));
 	Texture *t;
     Transformation* worldLeaning = new Transformation();
@@ -48,13 +55,13 @@ srand(time(NULL));
 
     Material *m;
 
-    Node* windNode = new Node(wind);
+
     Node* leaveNode = new Node(leave);
     Node *light1Node = new Node(light1);
     Node *keyNode = new Node(kTrans);
     Node *worldNode = new Node(worldLeaning);
 
-
+	Wind *wind = new Wind();
 	World *w = new World();
 	//Wind:
 	TriangleMesh *windMesh = new TriangleMesh(path+QString("/../Models/Wind.obj"));
@@ -156,6 +163,17 @@ srand(time(NULL));
 	keyNode->addChild(new Node(AnimalModel));
 
 
+	Animal *animal = new Animal(AnimalModel);
+	SmellPool *smellpool = new SmellPool();
+	Player *player = new Player(AnimalModel);
+	Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
+
+
+
+
+
+
+
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
     kTrans->setRotspeed(2.0);
 
@@ -171,7 +189,7 @@ srand(time(NULL));
 
 	light1Node->addChild(worldNode);
     worldNode->addChild(keyNode);
-    keyNode->addChild(windNode);
+
 
     return(light1Node);
 }
