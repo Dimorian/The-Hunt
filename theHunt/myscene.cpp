@@ -67,6 +67,9 @@ srand(time(NULL));
 
 		WindDrawables.append(new Drawable(windMesh));
 		WindDrawables.back()->setShader(s);
+
+
+
 		m = WindDrawables.back()->getProperty<Material>();
 		m->setDiffuse(1., 1., 1., 1.);
 		m->setAmbient(1., 1., 1., 1.);
