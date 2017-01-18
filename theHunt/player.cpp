@@ -1,10 +1,10 @@
 #include "player.h"
 #include "world.h"
 
+
 Player::Player(AnimatedModel* model_)
     : Kreatur ( model_)
 {
-
 }
 
 void Player::handleInput(int key, World* world)

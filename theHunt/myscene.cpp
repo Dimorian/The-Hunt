@@ -107,10 +107,9 @@ srand(time(NULL));
 	meshs.append(new TriangleMesh(path+QString("/../Models/Bodenblock.obj")));
     meshs.append(new TriangleMesh(path+QString("/../Models/Baum.obj")));
     meshs.append(new TriangleMesh(path+QString("/../Models/Tanne.obj")));
+    meshs.append(new TriangleMesh(path+QString("/../Models/Stein.obj")));
 	QList<Drawable*> drawables;
 	QList<Node*> nodes;
-
-    TriangleMesh* steinMesh = new TriangleMesh(path+QString("/../Models/Stein.obj"));
 
     Texture* bodenblock = new Texture(path+QString("/../Textures/BodenblockTexture.png"));
     Texture* baum = new Texture(path+QString("/../Textures/BaumTexture.png"));
@@ -138,7 +137,7 @@ srand(time(NULL));
                 drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
                 break;
             case 4:
-                drawables.append( new Drawable(steinMesh));
+                drawables.append( new Drawable(meshs.at(3)));
                 drawables.back()->setProperty<Texture>(stein);
                 drawables.back() ->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
                 break;
@@ -177,17 +176,20 @@ srand(time(NULL));
 
 	keyNode->addChild(new Node(AnimalModel));
 
+    //Player Inistialisierung
+
+    Player *player = new Player(AnimalModel);
+    int xBuf, yBuf;
+    do{
+        xBuf = rand()%8;
+        yBuf = rand()%8;
+    }while(!w->getTile(xBuf, yBuf)->getBegehbar());
+    QVector3D* position = new QVector3D(xBuf*2-14, 0.4f, yBuf*2-14);
+    player->setPosition(position);
 
 	Animal *animal = new Animal(AnimalModel);
-	SmellPool *smellpool = new SmellPool();
-	Player *player = new Player(AnimalModel);
+    SmellPool *smellpool = new SmellPool();
     Controller *controller = new Controller(cam,animal,smellpool,w,player,wind);
-
-
-
-
-
-
 
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'e', KeyboardTransformation::NoKey);
     kTrans->setRotspeed(2.0);
