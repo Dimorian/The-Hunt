@@ -11,6 +11,7 @@
 #include "keyboardtransformation.h"
 #include "simplecube.h"
 #include "shadertimed.h"
+#include "animatedmodel.h"
 #include <stdio.h>
 #include <time.h>
 Node *initScene1();
@@ -38,8 +39,6 @@ Node *initScene1()
 srand(time(NULL));
 
     SunLight* light1 = new SunLight();
-	//Drawable *baum = new Drawable(new TriangleMesh(path+QString("/../Models/Baum.obj")));
-	//Drawable *glow = new Drawable(new TriangleMesh(path+QString("/../Models/Bodenblock.obj")));
     Drawable *wind = new Drawable(new TriangleMesh(path+QString("/../Models/Wind.obj")));
     Drawable* leave = new Drawable(new TriangleMesh(path+QString("/../Models/Blatt.obj")));
 	Texture *t;
@@ -49,8 +48,6 @@ srand(time(NULL));
 
     Material *m;
 
-//    Node *sNode = new Node(baum);
-//    Node *gNode = new Node(glow);
     Node* windNode = new Node(wind);
     Node* leaveNode = new Node(leave);
     Node *light1Node = new Node(light1);
@@ -106,53 +103,25 @@ srand(time(NULL));
 	}
 	//
 
+    //Anzeige des Tiers
+
+    Drawable* animal = new Drawable(new AnimatedModel(path+QString("/../Models/"), 1));
+    t = animal->setProperty<Texture>();
+    t->loadPicture(path + QString("/../Textures/RehTexture.png"));
+    animal->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
+    m = animal->getProperty<Material>();
+    m->setDiffuse(1., 1., 1., 1.);
+    m->setAmbient(.5, .5, .5, 1.);
+    m->setSpecular(1., 1., 1., 1.);
+    m->setShininess(80.);
+    trans = drawables.back()->getProperty<ModelTransformation>();
+
+
     kTrans->setRotKeysUpper(KeyboardTransformation::NoKey, 'd', KeyboardTransformation::NoKey);
     kTrans->setRotspeed(2.0);
 
     worldLeaning->rotate(30.0, 1.0, 0.0, 0.0);
     worldLeaning->rotate(45.0, 0.0, 1.0, 0.0);
-
-    //Object Initialization
-
-    t = leave->getProperty<Texture>();
-    t->loadPicture(path+QString("/../Textures/BlattTexture.png"));
-    leave->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
-    m = leave->getProperty<Material>();
-    m->setDiffuse(1., 1., 1., 1.);
-    m->setAmbient(.5, .5, .5, 1.);
-    m->setSpecular(1., 1., 1., 1.);
-    m->setShininess(80.);
-    trans = leave->getProperty<ModelTransformation>();
-    trans->translate(1.3, 1.8, 0.0);
-    trans->scale(0.15, 0.15, 0.15);
-
-//    t = baum->getProperty<Texture>();
-//    t->loadPicture(path+QString("/../Textures/BaumTexture.png"));
-//    baum->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/texture.frag")));
-//    m = baum->getProperty<Material>();
-//    m->setDiffuse(1., 1., 1., 1.);
-//    m->setAmbient(.5, .5, .5, 1.);
-//    m->setSpecular(1., 1., 1., 1.);
-//    m->setShininess(80.);
-
-//    t= glow->getProperty<Texture>();
-//    t->loadPicture(path+QString("/../Textures/Bodenblock.png"));
-//    glow->setShader(ShaderManager::getShader(QString("://shaders/texture.vert"), QString("://shaders/simpletexture.frag")));
-//    trans = glow->getProperty<ModelTransformation>();
-//    trans->translate(0.0, 0.4, 0.0);
-
-    ShaderTimed *s = ShaderManager::getShader<ShaderTimed>("://shaders/wind.vert", "://shaders/wind.frag");
-    s->setMsecsPerIteration(2000);
-    wind->setShader(s);
-    m = wind->getProperty<Material>();
-    m->setDiffuse(1., 1., 1., 1.);
-    m->setAmbient(1., 1., 1., 1.);
-    m->setSpecular(1., 1., 1., 1.);
-    m->setShininess(80.);
-    trans = wind->getProperty<ModelTransformation>();
-    trans->translate(1.0, 1.8, 0.0);
-	trans->rotate(180.0,0.0,1.0,0.0);
-    trans->scale(0.3, 0.3, 0.3);
 
     light1->setDiffuse(0.7, 0.7, 0.7);
     light1->setSpecular(0.6, 0.6, 0.6);
@@ -162,11 +131,8 @@ srand(time(NULL));
     //Scene Graph
 
 	light1Node->addChild(worldNode);
-	worldNode->addChild(keyNode);
-//	keyNode->addChild(sNode);
-//	keyNode->addChild(gNode);
+    worldNode->addChild(keyNode);
     keyNode->addChild(windNode);
-    keyNode->addChild(leaveNode);
 
     return(light1Node);
 }
